@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  password   String
+  role       String   @default("user")
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Customer {
+  id        Int   @id @default(autoincrement())
+  customer  Json?
+  website   Json?
+  apps      Json?
+  marketing Json?
+  seo       Json?
+  ai        Json?
+
+  website_ai_complate   Boolean?
+  apps_ai_complate      Boolean?
+  markiting_ai_complate Boolean?
+  seo_ai_complate       Boolean?
+  ai_complate           Boolean?
+  photo                 Json?
+  photoSection                 Json?
+
+  notes      String?
+  created_at DateTime @default(now())
+}
