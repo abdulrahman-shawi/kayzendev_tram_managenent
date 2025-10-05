@@ -3,7 +3,7 @@ import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import prisma from "@/utils/db";
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, context: any) {
   try {
     const formData = await req.formData();
     const files = formData.getAll("files") as File[];
@@ -18,7 +18,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
 
     // جلب الصور الحالية من قاعدة البيانات
     const customer = await prisma.customer.findUnique({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(context.params.id) },
       select: { photo: true },
     });
 
