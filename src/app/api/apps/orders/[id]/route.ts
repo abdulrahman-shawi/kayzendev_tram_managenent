@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, RequestEvent } from "next/server";
 import prisma from "@/utils/db";
 import { CustomerDto, ValueObject } from "@/utils/dio";
 
@@ -9,10 +9,10 @@ type CustomerJsonFields = Pick<
 
 export async function GET(
   request: NextRequest,
-   { params }: { params: { id: string } } // params هنا تأتي من App Router
+  context: any // params هنا تأتي من App Router
 ) {
   try {
-    const id = parseInt(params.id); // تحويل string إلى number
+     const id = parseInt(context.params.id, 10); // تحويل string إلى number
     const customers = await prisma.customer.findMany({
       where: { id },
       orderBy: { created_at: "desc" },
@@ -27,7 +27,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: any
 ) {
   try {
     const id = parseInt(context.params.id);

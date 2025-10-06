@@ -8,7 +8,7 @@ type PhotoSection = Record<string, { urls: string[]; notes?: string }>;
 
 export async function POST(
   req: Request,
-  { params }: { params: { id: string } }
+  context: any
 ) {
   try {
     const formData = await req.formData();
@@ -42,7 +42,7 @@ export async function POST(
 
     // 👤 جلب العميل من قاعدة البيانات
     const customer = await prisma.customer.findUnique({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(context.params.id) },
       select: { photoSection: true },
     });
 
