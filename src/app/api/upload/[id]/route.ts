@@ -45,7 +45,7 @@ export async function POST(req: Request, context: any) {
 
     // تحديث قاعدة البيانات بالقائمة الجديدة
     await prisma.customer.update({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(context.params.id) },
       data: { photo: photos },
     });
 

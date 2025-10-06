@@ -80,7 +80,7 @@ export async function POST(
 
     // 💾 تحديث قاعدة البيانات
     const updatedCustomer = await prisma.customer.update({
-      where: { id: parseInt(params.id) },
+      where: { id: parseInt(context.params.id) },
       data: {
         photoSection:
           typeof customer?.photoSection === "string"
